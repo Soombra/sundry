@@ -1,0 +1,124 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>FB Search</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link rel="stylesheet" href="hw8.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-default row">
+	  <div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header col-md-4 col-xs">
+		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <a class="navbar-brand" style="color:lightblue" href="#">FB Search</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+	    <form class="navbar-form navbar-left col-md-8 row">
+		<div class="form-group col-xs-6">
+		  <input id="searcharea" type="text" value="USC" class="form-control" placeholder="">
+		</div>
+		<div class="col-xs-6">
+		<a id="searchbtn" href="javascript:;" class="btn btn-default" >Search</a>
+		<a id="clearbtn" href="javascript:;" class="btn btn-default">Clear</a>
+		</div>
+	   </form>
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<div id="searchtip" class="alert alert-warning" style="display:none;" role="alert">please input keywords</div>
+	<ul class="renav1 nav nav-pills visible-sm-block visible-md-block visible-lg-block ">
+	  <li role="presentation" class="active"><a href="#">Users</a></li>
+	  <li role="presentation"><a href="#">Pages</a></li>
+	  <li role="presentation"><a href="#">Events</a></li>
+	  <li role="presentation" class=""><a href="#">Places</a></li>
+	  <li role="presentation"><a href="#">Groups</a></li>
+	  <li role="presentation" class=""><a href="#">Favorites</a></li>
+	</ul>
+	<ul class="renav2 nav nav-pills nav-stacked visible-xs-block ">
+	  <li role="presentation" class="active"><a href="#">Users</a></li>
+	  <li role="presentation"><a href="#">Pages</a></li>
+	  <li role="presentation"><a href="#">Events</a></li>
+	  <li role="presentation" class=""><a href="#">Places</a></li>
+	  <li role="presentation"><a href="#">Groups</a></li>
+	  <li role="presentation" class=""><a href="#">Favorites</a></li>
+	</ul>
+	<div class="progress" style="margin-top:20px;" style="display:none;">
+		  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+			00%
+		  </div>
+	</div>
+	<div class="content container-fluid">
+		<!--<div id="Users_container">
+			<table class="table">
+			  <tr>
+				<th>#</th>
+				<th>Profile photo</th>
+				<th>Name</th>
+				<th>Details</th>
+			  </tr>
+			  <tr>
+				<td>sdf</td>
+				<td>sdf</td>
+				<td>sdf</td>
+				<td>sdfsd</td>
+			  </tr>
+			</table>
+		</div>-->
+		
+		<div id="Users_container" style="display:block;"></div>
+		<div id="Pages_container" style="display:none;"></div>
+		<div id="Events_container" style="display:none;"></div>
+		<div id="Places_container" style="display:none;"></div>
+		<div id="Groups_container" style="display:none;"></div>		
+		<div id="Favorites_container" style="display:none;"></div>		
+	</div>
+	<div class="detail container-fluid" style="display:none;">
+		<div class="row" style="margin-top:10px;"><a onclick="goback()" href="javascript:;" class="btn btn-default">返回</a></div>
+		<div class="row" style="margin-top:10px;">
+			<div class="panel panel-default col-md-6" style="padding:0;">
+			  <div class="panel-heading">
+				<h3 class="panel-title">Albums</h3>
+			  </div>
+			  <div class="panel-body">
+				<div class="alert alert-warning" role="alert">no data</div>
+			  </div>
+			</div>
+			<div class="panel panel-default col-md-6" style="padding:0;">
+			  <div class="panel-heading">
+				<h3 class="panel-title">Photos</h3>
+			  </div>
+			  <div class="panel-body">
+				<div class="alert alert-warning" role="alert">no data</div>
+			  </div>
+			</div>
+		</div>
+	</div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+   <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="hw8.js"></script>
+  </body>
+</html>
