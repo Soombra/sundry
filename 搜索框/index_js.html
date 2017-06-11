@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>搜索框</title>
+	<style>
+		body{
+			background-color: #333;
+		}
+		.bgd{
+			background: url(images/bgd.png) no-repeat;
+			width:100%;
+			height:740px;
+			position:relative;
+		}
+		.search_box{
+			position:absolute;
+			top:300px;
+			left:300px;
+		}
+		.search_box img{
+			width:70px;
+			height:auto;
+			float:left;
+			margin:-10px 10px 0 0;
+		}
+		form{
+			float:left;
+			background-color:#fff;
+		}
+		#input_text{
+			height:43px;
+			width:500px;
+			line-height: 45px;
+			font-size: 35px;
+			border:0;
+			float:left;
+			outline:none;
+		}
+		#input_button{
+			height:45px;
+			width:45px;
+			border:0;
+			background: url(images/search.png) -6px 0;
+			float:left;
+			cursor:pointer;
+		}
+		.content{
+			position:absolute;
+			top:220px;
+			left:480px;
+			font-size:50px;
+			color:#888;
+			font-family:"Arial";
+		}
+		#words_list{
+			margin:0;
+			padding:0;
+			background-color: #fff;
+			width:500px;
+			position: absolute;
+			top:344px;
+			left:380px;
+			display: none;
+		}
+		#words_list ul{
+			margin:0;
+			padding:0;
+			color:#444;
+		}
+		#words_list ul li{
+			list-style:none;
+			height:30px;
+			line-height:30px;
+			font-size:20px;
+		}
+		#words_list ul li:hover{
+			background-color: #ddd;
+		}
+	</style>
+</head>
+<body>
+	<div class="bgd">
+		<div class="content">搜索先锋</div>
+		<div class="search_box">
+			<img src="images/logo.png" alt=""/>
+			<form action="#" onsubmit="return mySubmit()">
+				<input type="text" id="input_text"/>
+				<input type="submit" id="input_button" value=""/>
+			</form>
+		</div>
+		<div id="words_list">
+			<ul id="search_result">
+				<li>第一条</li>
+				<li>第二条</li>
+				<li>第三条</li>
+			</ul>
+		</div>
+	</div>
+<script>
+window.onload=function(){
+	var input_text=document.getElementById("input_text");
+	var words_list=document.getElementById("words_list");
+	var search_result=document.getElementById("search_result");
+	input_text.onkeyup=function(){
+		words_list.style.display="block";
+		var input_value=input_text.value;
+		ajaxGet("http://api.bing.com/qsonhs.aspx?q="+input_value,function(d){
+			var d=d.AS.Result[0].Suggests;
+			var html="";
+			for(var i=0;i<d.length;i++){
+				html+="<li>"+d[i].Txt+"</li>";
+			}
+			search_result.innerHTML=html;
+		})
+	}
+	document.onclick=function(){
+		words_list.style.display="none";
+	}
+
+	var lis=document.getElementsByTagName("li")
+	for(var j=0;j<lis.length;j++){
+		lis[j].onclick=function(){
+		var keyword=this.innerHTML;
+	 	location.href="http://cn.bing.com/search?q="+keyword;
+	}
+	}
+	
+}
+
+var ajaxGet=function(url,callback){
+	var xhr=null;
+	if(window.XMLHttpRequest){
+		xhr=new XMLHttpRequest();
+	}else if(window.ActiveXObject){
+		xhr=new ActiveXObject("Msxml2.XMLHTTP");
+	}
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4&&xhr.status==200){
+			callback(JSON.parse(xhr.responseText));
+		}
+	}
+	xhr.open("get",url,true);
+	xhr.send(null);
+}
+
+function addEvent(id,event,fn){
+	var ele=document.getElementById(id)||document;
+	if(ele.addEventListener){
+		ele.addEventListener(event,fn,false);
+	}else if(ele.attachEvent){
+		ele.attachEvent("on"+event,fn);
+	}else{
+		ele["on"+event]=fn;
+	}
+}
+function mySubmit(){
+		var keyword=document.getElementById("input_text").value;
+		location.href="https://www.baidu.com/s?wd="+keyword;
+		return false;
+	}
+</script>
+</body>
+</html>
