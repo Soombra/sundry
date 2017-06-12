@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	
+		#inner{
+			width: 1000px;
+			height: 562px;
+			background:url(1.jpg);
+			background-size: cover;
+
+			border-radius: 20px;	
+			margin:auto;
+			transform-style:preserve-3d;
+			transition:all 0.1s linear 0s;
+		}
+		#one{
+			width: 1000px;
+			height: 562px;
+			margin:auto;
+		}
+		/*#one:hover{
+			transform: rotateY(50deg) perspective(50px);
+		}*/
+	</style>
+</head>
+<body>
+	<div id="one">
+		<div id="inner"></div>
+	</div>
+	<p id="out"></p>
+	<script>
+		var one=document.getElementById("one");
+		var inner=document.getElementById("inner");
+		var out=document.getElementById("out");
+		one.onmousemove=function(e){
+			var degY=(e.offsetX-500)/40;
+			var degX=(250-e.offsetY)/22;
+			inner.style.transform="rotateX("+degX+"deg) rotateY("+degY+"deg)";	
+		}
+		one.onmouseout=function(){
+			inner.style.transform="rotateX(0) rotateY(0)";
+		}
+	</script>
+</body>
+</html>

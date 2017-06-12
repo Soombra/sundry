@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.10.2/jquery.js"/></script>
+<title>带有分散效果的瀑布流</title>
+<style type="text/css">
+    *{padding: 0;margin:0;}
+    #main{
+        position: relative;
+    }
+    .pin{
+        padding: 15px 0 0 15px;
+        float:left;
+    }
+    .box{
+        padding: 10px;
+        border:1px solid #ccc;
+        box-shadow: 0 0 6px #ccc;
+        border-radius: 5px;
+    }
+    .box img{
+        width:200px;
+        height:auto;
+    }
+</style>
+<script>
+$(window).on("load", function(){
+   // 调用waterfall函数
+   waterfall();
+    var dataInt={'data':[{'src':'1.jpg'},{'src':'2.jpg'},{'src':'3.jpg'},{'src':'4.jpg'}]};
+    window.onscroll=function(){
+       // 拖动滚动条时
+       if(checkscrollside()){
+        $(dataInt.data).each(function(index,value){
+           var oPin=$("<div>").addClass("pin").appendTo($("#main"));
+           var oBox=$("<div>").addClass("box").appendTo(oPin);
+           $("<img>").attr("src","images/"+value.src).appendTo(oBox);
+       })
+        waterfall();
+       } 
+     }
+});
+function waterfall(){
+ // 计算及定位数据块显示分散效果
+    var pins=$("#main>div");
+    var hArr=[];
+    var w=pins.eq(0).outerWidth();
+    var cols=Math.floor($(window).width()/w);
+    $("#main").css({
+        "width":w*cols+"px",
+        "margin":"0 auto"
+    });
+    var animateArray=[];
+    pins.each(function(index,value){
+        var h=$(value).outerHeight();
+        
+        if(index<cols){
+            hArr.push(h);
+        }else{
+            var minH=Math.min.apply(null,hArr);
+            var minIndex=$.inArray(minH,hArr);
+            $(value).css("position","absolute");
+            $(value).css({
+                top:minH+"px",
+                left:minIndex*w+"px"
+            })
+            animateArray.push(value);
+            //hArr[minIndex]+=h;
+            //hArr[minIndex]+=pins.eq(index).outerHeight();
+            //hArr[minIndex]+=$(value).outerHeight();
+        }
+    })
+
+    $(animateArray[0]).animate({
+        
+    })
+}
+
+function checkscrollside(){
+  // 检测是否具备了加载数据块的条件
+  var lastPin=$("#main>div").last();
+  var lastPinH=lastPin.offset().top;
+  var scrollTop=$(window).scrollTop();
+  var windowH=$(window).height();
+  return (lastPinH<scrollTop+windowH)?true:false;
+}
+
+</script>
+</head>
+<body>
+<div id="main">
+    <div class="pin">
+        <div class="box">
+            <img src="images/1.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/2.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/3.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/4.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/5.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/6.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/7.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/8.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/9.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/10.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/11.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/12.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/13.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/14.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/15.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/16.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/17.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/18.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/19.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/20.jpg"/>
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="images/21.jpg"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
