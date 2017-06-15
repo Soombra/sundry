@@ -119,3 +119,51 @@ function addEvent(element,event,fn){
 	display:table;
 	clear:both;
 }
+
+11.//将文本或者输入框中的数字每三位加一个逗号
+//以下为数字格式化函数
+	function numFormat(selector){
+		var numBefore=$(selector).text();
+		var numArr=numBefore.split("");
+		var new_numArr=[];
+		var num_left=numArr.length%3;
+		var num_teams=parseInt(numArr.length/3);
+		var num_duration="";
+		for(var i=0;i<num_left;i++){
+			num_duration+=numArr[i];
+		}
+		if(num_duration!==""){
+			new_numArr.push(num_duration);
+		}
+		for(var i=num_left;i<numArr.length;i+=3){
+			num_duration=numArr[i]+numArr[i+1]+numArr[i+2];
+			new_numArr.push(num_duration);
+		}
+		 var numAfter=new_numArr.join(",");
+		 $(selector).text(numAfter);
+	}
+
+	//以下为输入框中数字格式化函数
+	function input_numFormat(selector){
+		var numBefore=$(selector).val();
+		var numArr=numBefore.split(",").join("").split("");
+		var new_numArr=[];
+		var num_left=numArr.length%3;
+		var num_teams=parseInt(numArr.length/3);
+		var num_duration="";
+		for(var i=0;i<num_left;i++){
+			num_duration+=numArr[i];
+		}
+		if(num_duration!==""){
+			new_numArr.push(num_duration);
+		}
+		for(var i=num_left;i<numArr.length;i+=3){
+			num_duration=numArr[i]+numArr[i+1]+numArr[i+2];
+			new_numArr.push(num_duration);
+		}
+		 var numAfter=new_numArr.join(",");
+		 $(selector).val(numAfter);
+	}
+
+
+12.
