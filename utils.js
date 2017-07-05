@@ -166,4 +166,16 @@ function addEvent(element,event,fn){
 	}
 
 
-12.
+12.//为jquery扩展方法，该方法可调用默认参数，预设参数和实时传入的参数
+$.fn.highlight = function (options) {
+    // 合并默认值和用户设定值:
+    var opts = $.extend({backgroundColor:"#333",color:"#555"}, $.fn.highlight.defaults, options);
+    this.css('backgroundColor', opts.backgroundColor).css('color', opts.color);
+    return this;
+}
+
+// 设定默认值:
+$.fn.highlight.defaults = {
+    color: '#d85030',
+    backgroundColor: '#fff8de'
+}
