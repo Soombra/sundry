@@ -179,3 +179,16 @@ $.fn.highlight.defaults = {
     color: '#d85030',
     backgroundColor: '#fff8de'
 }
+
+13.//node利用递归进行文件遍历 dir为传入路径，callback为传入的处理函数
+function travel(dir,callback){
+	fs.readdirSync(dir).forEach(function(file){
+		var pathname=path.join(dir,file);
+
+		if(fs.statSync(pathname).isDirectory()){
+			travel(pathname,callback);
+		}else{
+			callback(pathname);
+		}
+	})
+}
