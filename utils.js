@@ -192,3 +192,24 @@ function travel(dir,callback){
 		}
 	})
 }
+
+14.//识别文件编码格式并转化为UTF-8格式，
+function readText(pathname) {
+    var bin = fs.readFileSync(pathname);
+
+    if (bin[0] === 0xEF && bin[1] === 0xBB && bin[2] === 0xBF) {
+        bin = bin.slice(3);
+    }
+
+    return bin.toString('utf-8');
+}
+
+//其中GBK格式不支持，需要引用第三方模块“iconv-lite”来处理
+var iconv = require('iconv-lite');
+
+function readGBKText(pathname) {
+    var bin = fs.readFileSync(pathname);
+
+    return iconv.decode(bin, 'gbk');
+}
+15.
