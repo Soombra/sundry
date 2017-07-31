@@ -75,9 +75,9 @@ function urlParse(){
 	var desW=640,//设计稿尺寸
 		winW=document.documentElement.clientWidth,
 		ratio=winW/desW,
-		oMain=document.querySelectory(".mian");//最外层div
+		oMain=document.querySelector(".mian");//最外层div
 	if(winW>desW){
-		oMin.style.margin="0 auto";
+		oMain.style.margin="0 auto";
 		oMain.style.width=desW+"px";
 		return;
 	}
@@ -120,10 +120,15 @@ function addEvent(element,event,fn){
 	clear:both;
 }
 
-11.//将文本或者输入框中的数字每三位加一个逗号
-//以下为数字格式化函数
+11.///数字格式化函数，需遍历使用，因为text()函数返回所有元素的文本,加入了对小数点的判断
 	function numFormat(selector){
+		var tail="";
 		var numBefore=$(selector).text();
+		var spotIndex=numBefore.indexOf(".");
+		if(spotIndex!==-1){
+			tail=numBefore.substring(spotIndex);
+			numBefore=numBefore.substring(0,spotIndex);
+		}
 		var numArr=numBefore.split("");
 		var new_numArr=[];
 		var num_left=numArr.length%3;
@@ -139,7 +144,7 @@ function addEvent(element,event,fn){
 			num_duration=numArr[i]+numArr[i+1]+numArr[i+2];
 			new_numArr.push(num_duration);
 		}
-		 var numAfter=new_numArr.join(",");
+		 var numAfter=new_numArr.join(",")+tail;
 		 $(selector).text(numAfter);
 	}
 
