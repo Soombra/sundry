@@ -70,19 +70,6 @@ function urlParse(){
 	return json;
 }
 
-//7.REM响应式布局
-~function(){
-	var desW=640,//设计稿尺寸
-		winW=document.documentElement.clientWidth,
-		ratio=winW/desW,
-		oMain=document.querySelector(".mian");//最外层div
-	if(winW>desW){
-		oMain.style.margin="0 auto";
-		oMain.style.width=desW+"px";
-		return;
-	}
-	document.documentElement.style.fontSize=ratio*100+"px";
-}();
 
 //8.跨浏览器添加事件方法
 function addEvent(element,event,fn){
