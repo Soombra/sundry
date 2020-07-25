@@ -98,16 +98,16 @@ function addEvent(element,event,fn){
 }();
 
 //10.清除浮动通用方法
-.clearfix{
-	*zoom:1;
-}
-.clearfix:after{
-	content:"";
-	display:table;
-	clear:both;
-}
+// .clearfix{
+// 	*zoom:1;
+// }
+// .clearfix:after{
+// 	content:"";
+// 	display:table;
+// 	clear:both;
+// }
 
-11.///数字格式化函数，需遍历使用，因为text()函数返回所有元素的文本,加入了对小数点的判断
+//11.数字格式化函数，需遍历使用，因为text()函数返回所有元素的文本,加入了对小数点的判断
 	function numFormat(selector){
 		var tail="";
 		var numBefore=$(selector).text();
